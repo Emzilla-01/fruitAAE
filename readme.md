@@ -11,6 +11,11 @@ will produce a report on the fruit inventory including these metrics:
     4. The characteristics (size, color, shape, etc.) of each fruit by type
     5. Have any fruit been in the basket for over 3 days
 
+
+There is some extra (unused) code in here due to some uncertainty in the requirements (better to wait for clarification before trimming!).
+
+Can trim, refactor, add features to the script on request, happy to discuss.
+
 Thank you,
 EmyKay.com
 2021
