@@ -173,7 +173,7 @@ class FruitBasket():
         """Returns items older than the limit arg using naive fruit type ('apple', 'orange')        
            Sets FruitBasket.stale_item_ixs to indicate indices of each stale item so fruit can be taken off the shelf.
         """
-        print("Have any fruit been in the basket for over 3 days")
+        print("\nHave any fruit been in the basket for over 3 days")
         stale_items_dict = {k:v for k,v in self.fruitdict.items() if int(v['days'])>limit}
         self.stale_item_ixs = [k+1 for k in stale_items_dict.keys()] # k+1 will match Excel indexing to identify stale items
         stale_items_vals = {f: len([v for v in stale_items_dict.values() if v['fruit']==f]) for f in self.fruit_types_naive}
