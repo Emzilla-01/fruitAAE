@@ -162,7 +162,7 @@ class FruitBasket():
             [print(self.text_formatter(f"{itm[1]['count']} {itm[0]}s : {', '.join(itm[1]['attrs'])}")) for itm in self.fruit_chars_counts_dict.items()]
             #print(self.fruit_chars_counts_dict)
             
-    def plural_formatter(itm):
+    def plural_formatter(self, itm):
         if itm[1] > 1:
             s = f"{itm[1]} {itm[0]}s"
         if itm[1] == 1:
@@ -181,15 +181,20 @@ class FruitBasket():
         if len(stale_items_vals) == 0:
             stale_items_str = "No items older than {limit} days old."
         elif len(stale_items_vals) == 1:
-            stale_items_str = f"{list(stale_items_vals.values())[0]} {list(stale_items_vals.keys())[0]} is over {limit} days old"
+            stale_items_str = f"{self.plural_formatter(list(stale_items_vals.items())[0])} is over {limit} days old"
         elif len(stale_items_vals) == 2:
-            stale_items_str = " and ".join([f"{itm[1]} {itm[0]}" for itm in stale_items_vals.items()]) + f" are over {limit} days old"
+            stale_items_str = " and ".join([self.plural_formatter(itm) for itm in stale_items_vals.items()]) + f" are over {limit} days old"
         
         elif len(stale_items_vals) > 2:
-            stale_items_str = ", ".join([f"{itm[1]} {itm[0]}" for itm in list(stale_items_vals.items())[:-1]]) \
+            #print(tuple(list(stale_items_vals.items())[-1]))
+            #list(stale_items_vals.items())[:-1]
+            #x = list(stale_items_vals.items())[-1]
+            #print(x)
+            #print(self.plural_formatter(x))
+            #stale_items_str = 'foo'
+            stale_items_str = ", ".join([self.plural_formatter(itm) for itm in list(stale_items_vals.items())[:-1]]) \
             + " and " \
-            + f"{list(stale_items_vals.items())[-1][1]} {list(stale_items_vals.items())[-1][0]}" + f" are over {limit} days old"
-            # "s" indicating multiple items not yet implemented
+            + self.plural_formatter(tuple(list(stale_items_vals.items())[-1]))  + f" are over {limit} days old"
         else:
             raise Exception("Problem in days column")
         print(stale_items_str)
