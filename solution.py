@@ -123,7 +123,7 @@ class FruitBasket():
             method will return:
                       1 apple : sweet, yellow
                       1 apple : green, tart
-                      3 apple : red, sweet
+                      2 apple : red, sweet
                     
        If flat=True, considers type as (fruit), and lists all attrs associated with that fruit
             
