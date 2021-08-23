@@ -8,12 +8,14 @@ This module provides a FruitBasket class as a solution, with various methods ass
 There is some ambiguity in the problem statement, so some requirements have multiple associated methods or single methods with different relevant args.
 
 Updates can be made to improve optimization, readability, code organization per request. The idea is to present a fully featured first cut per the requirements.
+
+8-23-2021 : `how to write good code comments`??? 🤔🤔🤔
 """
 
 import sys
 import os
 from pprint import pprint
-#print(sys.argv[1])
+#print(sys.argv[1]) # only uses sys.argv[1] as expected .csv inputs - no other args
 
 class FruitBasket():
     def text_formatter(self, s):
@@ -59,9 +61,9 @@ class FruitBasket():
                       
         This method would say we have 3 types of fruit.
         """
-        #self.fruit_types_set = {(v['fruit'], ', '.join(v['chars'])) for v in self.fruitdict.values()}
+       
         self.fruit_types_set = {(v['fruit'], tuple(v['chars'])) for v in self.fruitdict.values()}
-        #pprint(fruit_types_set)
+       
         if verbose:
             print("Each type of fruit:\n")
             for val in self.fruit_types_set:
@@ -141,8 +143,7 @@ class FruitBasket():
                 [v for v in self.fruitdict.values() if v['fruit']==fruit_type[0] and v['chars']==list(fruit_type[1])]
                 )
             print("\nThe characteristics (size, color, shape, etc.) of each fruit by type (treating unique fruits as tuple of attrs):")
-            #pprint(self.fruit_chars_counts_dict.items())
-            
+                        
             [print(self.text_formatter(f"{itm[1]} {itm[0][0]}s : {itm[0][1]} ")) for itm in self.fruit_chars_counts_dict.items()]
             return([self.text_formatter(f"{itm[1]} {itm[0][0]} : {itm[0][1]} ") for itm in self.fruit_chars_counts_dict.items()])
         else:
@@ -160,8 +161,7 @@ class FruitBasket():
             
             print("\nThe characteristics (size, color, shape, etc.) of each fruit by type (flat/naive):")            
             [print(self.text_formatter(f"{itm[1]['count']} {itm[0]}s : {', '.join(itm[1]['attrs'])}")) for itm in self.fruit_chars_counts_dict.items()]
-            #print(self.fruit_chars_counts_dict)
-            
+                        
     def plural_formatter(self, itm):
         if itm[1] > 1:
             s = f"{itm[1]} {itm[0]}s"
@@ -186,12 +186,6 @@ class FruitBasket():
             stale_items_str = " and ".join([self.plural_formatter(itm) for itm in stale_items_vals.items()]) + f" are over {limit} days old"
         
         elif len(stale_items_vals) > 2:
-            #print(tuple(list(stale_items_vals.items())[-1]))
-            #list(stale_items_vals.items())[:-1]
-            #x = list(stale_items_vals.items())[-1]
-            #print(x)
-            #print(self.plural_formatter(x))
-            #stale_items_str = 'foo'
             stale_items_str = ", ".join([self.plural_formatter(itm) for itm in list(stale_items_vals.items())[:-1]]) \
             + " and " \
             + self.plural_formatter(tuple(list(stale_items_vals.items())[-1]))  + f" are over {limit} days old"
@@ -205,17 +199,11 @@ class FruitBasket():
 
 def main():
     basket = FruitBasket()
-    print(f"Total number of fruit: {basket.get_total_items_in_inventory()}\n")
-    #print(f"Types of fruit (unique per attrs): {basket.get_fruit_types(verbose=True)}\n")
-    #print(f"Types of fruit : {basket.get_fruit_naive(verbose=True)}\n")
+    print(f"Total number of fruit: {basket.get_total_items_in_inventory()}\n")  
     basket.count_fruit()
-    #basket.get_fruit_characteristics()
     basket.get_fruit_characteristics(flat=False)
     basket.get_fruit_characteristics(flat=True)
     basket.get_stale()
-    #print(basket.stale_item_ixs)
-    #print(basket.fruit_types_naive)
-    #print(dict(basket.fruit_counts))
     
 if __name__ == "__main__":
     main()
